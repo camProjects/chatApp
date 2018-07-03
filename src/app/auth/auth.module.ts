@@ -6,6 +6,8 @@ import { StoreModule } from '@ngrx/store';
 import * as fromAuth from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/effects/auth.effects';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   imports: [
@@ -14,6 +16,6 @@ import { AuthEffects } from './store/effects/auth.effects';
     StoreModule.forFeature('auth', fromAuth.reducers, { metaReducers: fromAuth.metaReducers }),
     EffectsModule.forFeature([AuthEffects])
   ],
-  declarations: []
+  declarations: [LoginComponent, SignupComponent]
 })
 export class AuthModule { }
