@@ -11,13 +11,25 @@ import { FeedComponent } from './chat-page/feed/feed.component';
 import { ChatFormComponent } from './chat-page/chat-form/chat-form.component';
 import { ChatRoomsComponent } from './chat-page/chat-rooms/chat-rooms.component';
 import { MessageComponent } from './chat-page/message/message.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     MainRoutingModule,
-    StoreModule.forFeature('main', fromMain.reducers, { metaReducers: fromMain.metaReducers })
+    SharedModule,
+    StoreModule.forFeature('main', fromMain.reducers, {
+      metaReducers: fromMain.metaReducers
+    })
   ],
-  declarations: [ChatPageComponent, MainComponent, HeaderComponent, FeedComponent, ChatFormComponent, ChatRoomsComponent, MessageComponent]
+  declarations: [
+    ChatPageComponent,
+    MainComponent,
+    HeaderComponent,
+    FeedComponent,
+    ChatFormComponent,
+    ChatRoomsComponent,
+    MessageComponent
+  ]
 })
-export class MainModule { }
+export class MainModule {}

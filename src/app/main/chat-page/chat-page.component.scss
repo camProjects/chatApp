@@ -1,0 +1,9 @@
+.chat-page-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .app-feed {
+    flex: 1;
+    overflow: auto;
+  }
+}
