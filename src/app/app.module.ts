@@ -11,9 +11,10 @@ import { reducers, metaReducers } from './store/reducers';
 import { AppRouting } from './app-routing.module';
 import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from './shared/shared.module';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     AppRouting,

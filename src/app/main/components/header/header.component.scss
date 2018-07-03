@@ -1,0 +1,13 @@
+.header-container {
+  height: 50px;
+  background-color: #228be6;
+  display: flex;
+  align-items: center;
+  .toogle-btn {
+    margin-left: 20px;
+    cursor: pointer;
+    i {
+      color: #fff;
+    }
+  }
+}
