@@ -3,23 +3,22 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { StoreModule } from '@ngrx/store';
-import * as fromAuth from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from './store/effects/auth.effects';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthComponent } from './auth.component';
 import { SharedModule } from '../shared/shared.module';
+import { effects, reducers, metaReducers } from './store';
 
 @NgModule({
   imports: [
     CommonModule,
     AuthRoutingModule,
     SharedModule,
-    StoreModule.forFeature('auth', fromAuth.reducers, {
-      metaReducers: fromAuth.metaReducers
+    StoreModule.forFeature('auth', reducers, {
+      metaReducers: metaReducers
     }),
-    EffectsModule.forFeature([AuthEffects])
+    EffectsModule.forFeature(effects)
   ],
   declarations: [LoginComponent, SignupComponent, AuthComponent]
 })

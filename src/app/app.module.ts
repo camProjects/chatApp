@@ -12,6 +12,7 @@ import { AppRouting } from './app-routing.module';
 import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './components/header/header.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -19,6 +20,7 @@ import { HeaderComponent } from './components/header/header.component';
     BrowserModule,
     AppRouting,
     SharedModule,
+    CoreModule,
     NgbModule.forRoot(),
     EffectsModule.forRoot([]),
     StoreModule.forRoot(reducers, { metaReducers }),

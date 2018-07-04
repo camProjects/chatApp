@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import * as fromAuth from '../store';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
@@ -7,12 +8,17 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(private store: Store<fromAuth.State>) {}
   email: string;
   password: string;
   ngOnInit() {}
 
   onLogin(form) {
-    this.authService.login(form.value.email, form.value.password);
+    this.store.dispatch(
+      new fromAuth.DoLogin({
+        username: form.value.email,
+        password: form.value.password
+      })
+    );
   }
 }
