@@ -3,8 +3,17 @@
   background-color: #228be6;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   .toogle-btn {
     margin-left: 20px;
+    cursor: pointer;
+    i {
+      color: #fff;
+    }
+  }
+
+  .logout-btn {
+    margin-right: 20px;
     cursor: pointer;
     i {
       color: #fff;

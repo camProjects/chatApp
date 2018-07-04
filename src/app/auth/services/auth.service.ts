@@ -1,35 +1,38 @@
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private user: Observable<firebase.User | null>;
-  private authState: any;
+  private authState: firebase.User = null;
+  private count = 0;
   constructor(
     private afAuth: AngularFireAuth,
     private db: AngularFireDatabase
   ) {
-    this.user = afAuth.authState;
+    afAuth.authState.subscribe(auth => (this.authState = auth));
   }
 
-  authUser() {
-    return this.user;
+  get authenticated(): boolean {
+    return this.authState !== null;
   }
-  getCurrentUserId(): string {
-    return (this.authState !== null && this.authState.user.uid) || '';
+
+  get currentUserObservable(): any {
+    return this.afAuth.authState;
   }
+
   login(email: string, password: string) {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(credential => {
-        return credential.user; // if using firestore
+        return this.updateUserData(credential.user); // if using firestore
       })
-      .catch(error => console.log(error));
+      .catch(error => error);
   }
   emailSignUp(email: string, password: string) {
     return this.afAuth.auth
@@ -40,33 +43,19 @@ export class AuthService {
       .catch(error => console.log(error));
   }
   logout() {
-    this.afAuth.auth.signOut();
+    return this.afAuth.auth
+      .signOut()
+      .then(() => {})
+      .catch(error => error);
   }
 
-  setUserData(email: string, displayName: string, status: string) {
-    const currentUserId = this.getCurrentUserId();
-    const path = `users/${currentUserId}`;
-    const data = {
-      email,
-      displayName,
-      status
+  updateUserData(data: any): User {
+    const user: User = {
+      uid: data.uid,
+      email: data.email || null,
+      displayName: data.displayName || 'nameless user',
+      photoURL: data.photoURL || 'https://goo.gl/Fz9nrQ'
     };
-
-    this.db
-      .object(path)
-      .update(data)
-      .catch(err => console.log(err));
-  }
-
-  setUserStatus(status: string) {
-    const path = `users/${this.getCurrentUserId()}`;
-    const data = {
-      status
-    };
-
-    this.db
-      .object(path)
-      .update(data)
-      .catch(err => console.log(err));
+    return user;
   }
 }

@@ -21,11 +21,37 @@ export class AuthEffects {
     switchMap(cred => {
       return from(this.authService.login(cred.username, cred.password)).pipe(
         map(res => {
-          this.router.navigate(['/']);
           return new AuthActions.LoginSuccess(res);
         }),
         catchError(() => of(new AuthActions.LoginFailure()))
       );
     })
   );
+
+  @Effect()
+  doLogout$ = this.actions$.ofType(AuthActions.AuthActionTypes.DO_LOGOUT).pipe(
+    switchMap(() => {
+      return from(this.authService.logout()).pipe(
+        map(() => new AuthActions.LogoutSuccess())
+      );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  loginSuccess$ = this.actions$
+    .ofType(AuthActions.AuthActionTypes.LOGIN_SUCCESS)
+    .pipe(
+      tap(() => {
+        this.router.navigate(['/']);
+      })
+    );
+
+  @Effect({ dispatch: false })
+  logoutSuccess$ = this.actions$
+    .ofType(AuthActions.AuthActionTypes.LOGOUT_SUCCESS)
+    .pipe(
+      tap(() => {
+        this.router.navigate(['auth', 'login']);
+      })
+    );
 }

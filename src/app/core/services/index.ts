@@ -1,3 +1,3 @@
-import { AuthGuardService } from './auth-guard.service';
+import { AuthGuard } from './auth-guard.service';
 
-export const services = [AuthGuardService];
+export const services = [AuthGuard];

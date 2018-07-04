@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as fromAuth from '../auth/store';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-main',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+  constructor(private store: Store<fromAuth.State>) {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  logout() {
+    this.store.dispatch(new fromAuth.DoLogout());
   }
-
 }
