@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main.component';
-import { ChatPageComponent } from './chat-page/chat-page.component';
+import { ChannelsComponent } from './channels/channels.component';
+import { RoomComponent } from './room/room.component';
 
 const routes: Routes = [
   {
@@ -9,12 +10,16 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {
-        path: 'chat',
-        component: ChatPageComponent
+        path: 'channels',
+        component: ChannelsComponent
+      },
+      {
+        path: 'channels/:id',
+        component: RoomComponent
       },
       {
         path: '',
-        redirectTo: 'chat'
+        redirectTo: 'channels'
       }
     ]
   }

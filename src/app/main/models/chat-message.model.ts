@@ -5,3 +5,8 @@ export class ChatMessage {
   message?: string;
   timeSent?: string;
 }
+
+export interface ChatMessages {
+  id: string;
+  messages: ChatMessage[];
+}

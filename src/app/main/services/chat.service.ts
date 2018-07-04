@@ -64,4 +64,8 @@ export class ChatService {
 
     return date + ' ' + time;
   }
+
+  getChannels(): Observable<any[]> {
+    return this.db.list('chatChannels', ref => ref.orderByKey()).valueChanges();
+  }
 }

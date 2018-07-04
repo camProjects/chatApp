@@ -12,6 +12,10 @@ import { ChatFormComponent } from './chat-page/chat-form/chat-form.component';
 import { ChatRoomsComponent } from './chat-page/chat-rooms/chat-rooms.component';
 import { MessageComponent } from './chat-page/message/message.component';
 import { SharedModule } from '../shared/shared.module';
+import { EffectsModule } from '@ngrx/effects';
+import { ChatPageEffects } from './store/effects/chat-page.effects';
+import { ChannelsComponent } from './channels/channels.component';
+import { RoomComponent } from './room/room.component';
 
 @NgModule({
   imports: [
@@ -20,7 +24,8 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     StoreModule.forFeature('main', fromMain.reducers, {
       metaReducers: fromMain.metaReducers
-    })
+    }),
+    EffectsModule.forFeature([ChatPageEffects])
   ],
   declarations: [
     ChatPageComponent,
@@ -29,7 +34,9 @@ import { SharedModule } from '../shared/shared.module';
     FeedComponent,
     ChatFormComponent,
     ChatRoomsComponent,
-    MessageComponent
+    MessageComponent,
+    ChannelsComponent,
+    RoomComponent
   ]
 })
 export class MainModule {}
