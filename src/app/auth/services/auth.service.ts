@@ -8,10 +8,11 @@ import { AngularFireDatabase } from 'angularfire2/database';
   providedIn: 'root'
 })
 export class AuthService {
-  private user: Observable<any | null>;
-
+  private user: Observable<firebase.User | null>;
+  private authState: any;
   constructor(
-    private afAuth: AngularFireAuth // private db: AngularFireDatabase
+    private afAuth: AngularFireAuth,
+    private db: AngularFireDatabase
   ) {
     this.user = afAuth.authState;
   }
@@ -19,7 +20,9 @@ export class AuthService {
   authUser() {
     return this.user;
   }
-
+  getCurrentUserId(): string {
+    return (this.authState !== null && this.authState.user.uid) || '';
+  }
   login(email: string, password: string) {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
@@ -40,30 +43,30 @@ export class AuthService {
     this.afAuth.auth.signOut();
   }
 
-  // setUserData(email: string, displayName: string, status: string) {
-  //   const currentUserId = this.getCurrentUserId();
-  //   const path = `users/${currentUserId}`;
-  //   const data = {
-  //     email,
-  //     displayName,
-  //     status
-  //   };
+  setUserData(email: string, displayName: string, status: string) {
+    const currentUserId = this.getCurrentUserId();
+    const path = `users/${currentUserId}`;
+    const data = {
+      email,
+      displayName,
+      status
+    };
 
-  //   this.db
-  //     .object(path)
-  //     .update(data)
-  //     .catch(err => console.log(err));
-  // }
+    this.db
+      .object(path)
+      .update(data)
+      .catch(err => console.log(err));
+  }
 
-  // setUserStatus(status: string) {
-  //   const path = `users/${this.getCurrentUserId()}`;
-  //   const data = {
-  //     status
-  //   };
+  setUserStatus(status: string) {
+    const path = `users/${this.getCurrentUserId()}`;
+    const data = {
+      status
+    };
 
-  //   this.db
-  //     .object(path)
-  //     .update(data)
-  //     .catch(err => console.log(err));
-  // }
+    this.db
+      .object(path)
+      .update(data)
+      .catch(err => console.log(err));
+  }
 }

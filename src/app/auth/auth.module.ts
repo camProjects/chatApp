@@ -8,16 +8,14 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthComponent } from './auth.component';
 import { SharedModule } from '../shared/shared.module';
-import { effects, reducers, metaReducers } from './store';
+import { effects, reducers } from './store';
 
 @NgModule({
   imports: [
     CommonModule,
     AuthRoutingModule,
     SharedModule,
-    StoreModule.forFeature('auth', reducers, {
-      metaReducers: metaReducers
-    }),
+    StoreModule.forFeature('auth', reducers),
     EffectsModule.forFeature(effects)
   ],
   declarations: [LoginComponent, SignupComponent, AuthComponent]
