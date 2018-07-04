@@ -65,7 +65,17 @@ export class ChatService {
     return date + ' ' + time;
   }
 
-  getChannels(): Observable<any[]> {
+  getChannelsObservable(): Observable<any[]> {
     return this.db.list('chatChannels', ref => ref.orderByKey()).valueChanges();
+  }
+
+  getChannels() {
+    return this.db.list('chatChannels', ref => ref.orderByKey());
+  }
+
+  addChannel(name: string) {
+    this.getChannels()
+      .push({ name })
+      .then(res => res);
   }
 }

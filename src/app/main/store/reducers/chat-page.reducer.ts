@@ -1,10 +1,10 @@
 import { Action } from '@ngrx/store';
 
 import * as ChatPageActions from '../actions';
-import { ChatChannel } from '../../models/chat-channel';
+import { Channel } from '../../models';
 
 export interface State {
-  chatChannels: ChatChannel[];
+  chatChannels: Channel[];
 }
 
 export const initialState: State = {

@@ -7,7 +7,7 @@ export const selectChatPageState = createSelector(
   (state: fromMain.State) => state.chatPage
 );
 
-export const getChatRooms = createSelector(
+export const getChannels = createSelector(
   selectChatPageState,
   (state: fromChatPage.State) => state.chatChannels
 );
