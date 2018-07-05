@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ChatMessage } from '../../models';
 
 @Component({
   selector: 'app-feed',
@@ -6,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./feed.component.scss']
 })
 export class FeedComponent implements OnInit {
-  @Input() feed: any;
+  @Input() feed: ChatMessage;
   constructor() {}
 
   ngOnInit() {}

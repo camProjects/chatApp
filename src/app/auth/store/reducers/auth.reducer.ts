@@ -1,9 +1,10 @@
 import * as AuthActions from '../actions/auth.actions';
+import { User } from '../../models/user.model';
 
 export interface State {
   isAuthorized: boolean;
   logging: boolean;
-  user: any;
+  user: User;
 }
 
 export const initialState: State = {
@@ -21,6 +22,8 @@ export function reducer(
       return { ...state, logging: true };
     case AuthActions.AuthActionTypes.LOGIN_SUCCESS:
       return { ...state, user: action.payload };
+    case AuthActions.AuthActionTypes.LOGOUT_SUCCESS:
+      return { ...state, user: null };
     default:
       return state;
   }

@@ -15,19 +15,7 @@ export class ChatService {
   chatMessage: ChatMessage;
   userName: string;
 
-  constructor(
-    private db: AngularFireDatabase,
-    private afAuth: AngularFireAuth
-  ) {
-    this.afAuth.authState.subscribe(auth => {
-      if (auth !== undefined && auth !== null) {
-        this.user = auth;
-      }
-      this.getUser().subscribe(a => {
-        this.userName = a.displayName;
-      });
-    });
-  }
+  constructor(private db: AngularFireDatabase) {}
 
   getUser(): Observable<any> {
     const userId = this.user.uid;

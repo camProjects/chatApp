@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
@@ -10,11 +9,7 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
   private authState: firebase.User = null;
-  private count = 0;
-  constructor(
-    private afAuth: AngularFireAuth,
-    private db: AngularFireDatabase
-  ) {
+  constructor(private afAuth: AngularFireAuth) {
     afAuth.authState.subscribe(auth => (this.authState = auth));
   }
 
