@@ -3,16 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: AuthComponent,
-    children: [
-      { path: '', redirectTo: 'login' },
-      { path: 'login', component: LoginComponent }
-    ]
-  }
-];
+const routes: Routes = [{ path: 'login', component: LoginComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

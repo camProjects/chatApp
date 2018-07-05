@@ -51,7 +51,7 @@ export class AuthEffects {
     .ofType(AuthActions.AuthActionTypes.LOGOUT_SUCCESS)
     .pipe(
       tap(() => {
-        this.router.navigate(['auth', 'login']);
+        this.router.navigate(['login']);
       })
     );
 }

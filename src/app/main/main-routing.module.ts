@@ -10,17 +10,17 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'channels'
+      },
+      {
         path: 'channels',
         component: ChannelsComponent
       },
       {
         path: 'channels/:id',
         component: ChatPageComponent
-      },
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'channels'
       }
     ]
   }

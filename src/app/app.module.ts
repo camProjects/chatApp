@@ -21,6 +21,7 @@ import {
   RouterStateSerializer,
   StoreRouterConnectingModule
 } from '@ngrx/router-store';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -31,6 +32,7 @@ import {
     CoreModule,
     NgbModule.forRoot(),
     EffectsModule.forRoot([]),
+    AuthModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     AngularFireModule.initializeApp(environment.firebase),
