@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -34,21 +35,23 @@ export class ChatService {
     return this.db.object(path).valueChanges();
   }
 
-  sendMessage(msg: string) {
+  sendMessage(msg: string, id: string) {
     const timeStamp = this.getTimeStamp();
     const email = this.user.email;
     const userName = this.userName;
-    this.chatMessages = this.getMessages();
-    this.chatMessages.push({
-      email: email,
-      message: msg,
-      userName: userName,
-      timeSent: timeStamp
-    });
+    this.chatMessages = this.getMessages(id);
+    return this.chatMessages
+      .push({
+        email: email,
+        message: msg,
+        userName: userName,
+        timeSent: timeStamp
+      })
+      .then(() => {});
   }
 
-  getMessages(): AngularFireList<ChatMessage> {
-    return this.db.list('messages', ref => ref.limitToFirst(25).orderByKey());
+  getMessages(id: string): AngularFireList<ChatMessage> {
+    return this.db.list(`messages/${id}`, ref => ref.orderByKey());
   }
 
   getTimeStamp() {
@@ -66,7 +69,12 @@ export class ChatService {
   }
 
   getChannelsObservable(): Observable<any[]> {
-    return this.db.list('chatChannels', ref => ref.orderByKey()).valueChanges();
+    return this.db
+      .list('chatChannels', ref => ref.orderByKey())
+      .snapshotChanges()
+      .pipe(
+        map(data => data.map(c => ({ key: c.payload.key, ...c.payload.val() })))
+      );
   }
 
   getChannels() {
@@ -74,7 +82,8 @@ export class ChatService {
   }
 
   addChannel(name: string) {
-    this.getChannels()
+    console.log(this.getChannels());
+    return this.getChannels()
       .push({ name })
       .then(res => res);
   }

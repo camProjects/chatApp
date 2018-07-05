@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main.component';
 import { ChannelsComponent } from './channels/channels.component';
-import { RoomComponent } from './room/room.component';
+import { ChatPageComponent } from './chat-page/chat-page.component';
 
 const routes: Routes = [
   {
@@ -15,7 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'channels/:id',
-        component: RoomComponent
+        component: ChatPageComponent
       },
       {
         path: '',

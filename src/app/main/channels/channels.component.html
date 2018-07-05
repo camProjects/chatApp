@@ -1,5 +1,10 @@
-<div *ngFor="let channel of channels | async">
-  <div>{{channel}}</div>
+<div *ngFor="let channel of channels$ | async" class="channels-wrapper"
+  (click)="navigateToRoom(channel)">
+  <div class="channel-img">
+    <img src="https://cdn1.iconfinder.com/data/icons/mix-color-3/502/Untitled-8-512.png"
+      alt="">
+  </div>
+  <div class="channel-info">{{channel.name}}</div>
 </div>
 <div>
   <label for="name">Channel Name</label>

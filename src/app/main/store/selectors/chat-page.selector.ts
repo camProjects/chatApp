@@ -11,3 +11,8 @@ export const getChannels = createSelector(
   selectChatPageState,
   (state: fromChatPage.State) => state.chatChannels
 );
+
+export const getMessages = createSelector(
+  selectChatPageState,
+  (state: fromChatPage.State) => state.messages
+);

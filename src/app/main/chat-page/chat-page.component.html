@@ -1,6 +1,6 @@
 <div class="chat-page-container">
   <div class="app-feed" #scroller>
-    <app-feed [feed]="feed | async"></app-feed>
+    <app-feed [feed]="feed$ | async"></app-feed>
   </div>
   <div class="chat-form">
     <app-chat-form (sending)="sendMessage($event)"></app-chat-form>

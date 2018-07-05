@@ -1,7 +1,15 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  AfterViewChecked
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { ChatMessage } from '../models/chat-message.model';
-import { ChatService } from '../services/chat.service';
+import { Store } from '@ngrx/store';
+
+import * as fromMain from '../store';
 
 @Component({
   selector: 'app-chat-page',
@@ -9,17 +17,18 @@ import { ChatService } from '../services/chat.service';
   styleUrls: ['./chat-page.component.scss']
 })
 export class ChatPageComponent implements OnInit, AfterViewChecked {
-  feed: Observable<ChatMessage[]>;
+  feed$: Observable<ChatMessage[]>;
   isListOpen = false;
   @ViewChild('scroller') private feedContainer: ElementRef;
-  constructor(private chatService: ChatService) {}
+  constructor(private store: Store<fromMain.State>) {}
 
   ngOnInit() {
-    this.feed = this.chatService.getMessages().valueChanges();
+    this.store.dispatch(new fromMain.GetChatMessages());
+    this.feed$ = this.store.select(fromMain.getMessages);
   }
 
   sendMessage(mes: string) {
-    this.chatService.sendMessage(mes);
+    this.store.dispatch(new fromMain.SendMessage(mes));
   }
   scrollToBottom(): void {
     this.feedContainer.nativeElement.scrollTop = this.feedContainer.nativeElement.scrollHeight;

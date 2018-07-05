@@ -5,6 +5,11 @@ import {
 } from '@ngrx/store';
 import { environment } from '../../../../environments/environment';
 import * as fromChatPage from './chat-page.reducer';
+import * as fromApp from '../../../store';
+
+export interface FeatureState extends fromApp.State {
+  mainState: State;
+}
 
 export interface State {
   chatPage: fromChatPage.State;
